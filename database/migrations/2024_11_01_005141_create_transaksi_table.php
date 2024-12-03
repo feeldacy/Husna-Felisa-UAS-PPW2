@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('bayar');
             $table->integer('kembalian');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
