@@ -1,3 +1,5 @@
+@extends('layouts')
+@section('content')
 
     <h2>Data Detail Transaksi</h2>
     <div class="card">
@@ -17,15 +19,15 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <h6 class="m-0">Total</h6>
-                    {{ number_format($transaksi->, 0, '.', '.') }}
+                    {{ number_format($transaksi->total_harga, 0, '.', '.') }}
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <h6 class="m-0">Pembayaran</h6>
-                    {{ number_format($transaksi->, 0, '.', '.') }}
+                    {{ number_format($transaksi->bayar, 0, '.', '.') }}
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <h6 class="m-0">Kembalian</h6>
-                    {{ number_format($transaksi->, 0, '.', '.') }}
+                    {{ number_format($transaksi->kembalian, 0, '.', '.') }}
                 </li>
             </ul>
             <table class="table table-bordered">
@@ -41,14 +43,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($transaksi-> as $index => $data)
+                @foreach ($transaksi as $index => $data)
                     <tr>
                         <td>{{ $index+1 }}</td>
                         <td>{{ \Carbon\Carbon::parse($data->transaksi->tanggal_)->format('d/m/Y') }}</td>
                         <td>{{ $data->nama_produk }}</td>
-                        <td class="text-end">{{ number_format($data->, 0, '.', '.') }}</td>
-                        <td class="text-end">{{ number_format($data->, 0, '.', '.') }}</td>
-                        <td class="text-end">{{ number_format($data->, 0, '.', '.') }}</td>
+                        <td class="text-end">{{ number_format($data->harga_satuan, 0, '.', '.') }}</td>
+                        <td class="text-end">{{ number_format($data->jumlah, 0, '.', '.') }}</td>
+                        <td class="text-end">{{ number_format($data->subtotal, 0, '.', '.') }}</td>
                         <td>
                             <div class="d-flex gap-2">
                                 <a href="{{ route('transaksidetail.edit', $data -> id) }}" class="btn btn-warning btn-sm">Edit</a>
@@ -65,11 +67,13 @@
                 <tfoot>
                 <tr>
                     <th colspan="5">Total</th>
-                    <th class="text-end">{{ number_format($transaksi->->sum('subtotal'), 0, '.', '.') }}</th>
+                    <th class="text-end">{{ number_format($transaksi->sum('subtotal'), 0, '.', '.') }}</th>
                     <th></th>
                 </tr>
                 </tfoot>
             </table>
         </div>
     </div>
+
+@endsection
 
