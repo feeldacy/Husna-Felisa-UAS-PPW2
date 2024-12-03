@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->integer('subtotal');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
